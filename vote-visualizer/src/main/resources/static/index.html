@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Resultados das Votações</title>
+    <style>
+        body {
+            background-color: #1e1e1e;
+            color: #00ff00;
+            font-family: monospace;
+            padding: 20px;
+        }
+        #results {
+            background-color: #000;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #00ff00;
+            max-width: 700px;
+            margin: 0 auto;
+            overflow-y: auto;
+            height: 80vh;
+        }
+        .entry {
+            margin-bottom: 20px;
+            white-space: pre-line;
+        }
+        .divider {
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+<div id="results"></div>
+
+<script>
+    const eventSource = new EventSource('/api/v1/view/result-stream');
+    const resultsDiv = document.getElementById('results');
+
+    eventSource.onmessage = function(event) {
+        const result = JSON.parse(event.data);
+
+        const div = document.createElement('div');
+        div.className = 'entry';
+
+        div.innerHTML = `
+╔═══════════════════════════════════════════════╗
+║             NOVO RESULTADO RECEBIDO           ║
+╚═══════════════════════════════════════════════╝
+
+Id: ${result.agendaId}
+Pauta: ${result.agendaName}
+Descrição da Pauta: ${result.agendaDetails}
+Resultado: ${result.voteWin}
+Votos SIM: ${result.votesYes} | Votos NÃO: ${result.votesNo}
+──────────────────────────────────────────────────────
+`;
+
+        resultsDiv.appendChild(div);
+        resultsDiv.scrollTop = resultsDiv.scrollHeight;
+    };
+</script>
+</body>
+</html>
