@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: vote-visualizer
+
+server:
+  port: 8082
+
+logging:
+  file:
+    path: /logs
+    name: /logs/app.log
+  pattern:
+    file: "%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n"
+  level:
+    root: INFO
