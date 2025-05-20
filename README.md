@@ -50,6 +50,7 @@ Utilize o power shell e execute o script build-and-start.ps1 com:
 ```bash
   .\build-and-start.ps1
 ```
+Certifique-se de que o diretório esteja em um caminho onde as pastas correspondentes NÃO tenham nenhum espaço ou acento no nome.  
 
 Nota para usuários de windows:
 Caso seu sistema de política de execução do power shell seja Restricted, então será necessário mudar temporariamente para executar o script. Para fazer a alteração temporária, utilize:
