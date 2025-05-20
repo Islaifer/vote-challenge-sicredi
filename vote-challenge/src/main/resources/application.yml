@@ -1,0 +1,44 @@
+spring:
+  application:
+    name: voteChallenge
+
+  neo4j:
+    security:
+      encrypted: true
+
+  datasource:
+    url: jdbc:mariadb://${DB_URL}:${DB_PORT}/VOTE_MANAGER?createDatabaseIfNotExist=true
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+
+  kafka:
+    bootstrap-servers: ${KAFKA_URL}:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.add.type.headers: true
+
+server:
+  port: 8080
+
+logging:
+  file:
+    path: /logs
+    name: /logs/app.log
+  pattern:
+    file: "%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n"
+  level:
+    root: INFO
+
+springdoc:
+  api-docs:
+    path: /api-docs
+    version: OPENAPI_3_1
+  swagger-ui:
+    path: /swagger-ui.html
